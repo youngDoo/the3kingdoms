@@ -1,0 +1,49 @@
+name: Deploy 三国里的一天 to GitHub Pages
+
+# 自动发布：推送到 main 即部署；也可在 Actions 页手动触发。
+# configure-pages 带 enablement: true，即使仓库还没开过 Pages，这一步也会自动开启。
+# 仓库根 = 站点根：index.html（书架）+ assets/（共用引擎）+ s/<slug>/（各本故事）
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure Pages (enable if not yet enabled)
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Stage site (keep .git and .github out of the artifact)
+        run: |
+          mkdir -p _site
+          rsync -a --exclude='.git' --exclude='.github' ./ _site/
+          touch _site/.nojekyll
+
+      - name: Upload site (仓库根 = 站点根，已剔除 .git/.github)
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

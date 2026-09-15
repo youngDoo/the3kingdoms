@@ -1,0 +1,21 @@
+/* 《三国里的一天》系列 · 共用设计令牌与基础重置
+   所有页面（书架 / 放映页）都先加载这个文件，再加载各自的样式。 */
+
+:root {
+  --ink: #2B2B28;
+  --paper: #FBF8F0;
+  --gold: #F5B93B;        /* 系列主色：一盏灯的暖黄 */
+  --celadon: #8FA98F;
+  --bg: #14150F;          /* 深墨底 */
+  --card: #1c1d15;
+  --line: #2c2e22;
+  --muted: #8d8d80;
+  --muted-2: #c4c0b1;
+  --font: "Maple Mono NF CN", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+body { font-family: var(--font); }
+
+a { -webkit-tap-highlight-color: transparent; }
