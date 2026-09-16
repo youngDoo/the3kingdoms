@@ -65,3 +65,13 @@ body.notes-on  .cap { display:none; }
   .slide img { height:100vh; }
   .rail,.hint,.notes,.dl,.bgm,.home { display:none !important; }
 }
+
+
+/* 封面：故事视频入口（story.json 有 video_line / video/ 里有 mp4 时才出现） */
+.titlecard .watch{
+  display:inline-block;margin-top:20px;padding:11px 24px;border-radius:999px;
+  background:linear-gradient(135deg,#ffb347,#ff7a59);color:#2a1608;font-weight:700;
+  text-decoration:none;font-size:clamp(14px,1.5vw,19px);letter-spacing:.5px;
+  box-shadow:0 6px 22px rgba(255,140,70,.38);pointer-events:auto;position:relative;z-index:5;
+}
+.titlecard .watch:hover{filter:brightness(1.09);transform:translateY(-1px)}
